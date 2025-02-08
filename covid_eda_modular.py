@@ -9,7 +9,17 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install -r requirements.txt
+
+import sys
+display(sys.version)
+
+# COMMAND ----------
+
+%pip install -r requirements.txt
+
+# COMMAND ----------
+
+# MAGIC %restart_python
 
 # COMMAND ----------
 
@@ -57,15 +67,27 @@ df.to_table(name="dev_covid_trends", mode='overwrite')
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC #### Checking the table's and schema available
+
+# COMMAND ----------
+
+# Show available databases
+spark.sql("SHOW DATABASES").show()
+# Show tables in the current/default database
+spark.sql("SHOW TABLES").show()
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC #### Visualize
 
 # COMMAND ----------
 
 # Using Databricks visualizations and data profiling
-display(spark.table("dev_covid_analysis"))
+display(spark.table("default.dev_covid_trends"))
 
 # COMMAND ----------
 
 # Using python
-df.to_pandas().plot(figsize=(13,6), grid=True).legend(loc='upper left')
+df.toPandas().plot(figsize=(13,6), grid=True).legend(loc='upper left')
 
